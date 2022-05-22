@@ -5,13 +5,14 @@
 */
 
 :root {
-  --primary-color: rgba(240, 207, 136, 0.5);
-  --secondary-color: rgb(0, 0, 0);
-  --tertiary-color: rgb(255, 255, 255);
-  --background-color: rgba(29, 29, 29, 0.7);
-  --highlight-color: black;
+  --primary-color: rgb(126, 94, 5);
+  --secondary-color: rgb(255, 255, 255);
+  --tertiary-color: rgb(0, 1, 66);
+  --background-color: rgb(196, 196, 196);
+  --highlight-color: rgb(0, 42, 54);
+  --header-color: rgb(23, 105, 119);
   --text-color: black;
-  --max-total-width: 980px;
+  --max-total-width: 1380px;
 
   --button1-color: rgb(6, 104, 101);
   --button2-color: rgb(143, 41, 10);
@@ -23,6 +24,237 @@ html{
 }
 
 body{
-  background-color: var(--primary-color);
+  background-color: var(--background-color);
   color: var(--text-color);
+}
+
+#header{
+  position: absolute;
+  background-color: var(--header-color);
+  width: 100%;
+  top: 0%;
+  left: 0%;
+  padding-top: 10px;
+  padding-bottom: min(max(2px, 0.6vw), 6px);
+  padding-left: 0;
+  padding-right: 0;
+  height: fit-content;
+}
+#dummyHeader{ 
+  background-color: red;
+  width: 100%;
+  top: 0%;
+  left: 0%;
+  padding-top: 10px;
+  padding-bottom: min(max(2px, 0.6vw), 6px);
+  padding-left: 0;
+  padding-right: 0;
+  height: fit-content;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#headerInner{
+  width: min(100%, var(--max-total-width));
+  max-height: 100%;
+  margin: 0 auto;
+  display: flex;
+  height: fit-content;
+}
+#dummyHeaderInner{
+  width: min(100%, var(--max-total-width));
+  max-height: 100%;
+  margin: 0 auto;
+  display: flex;
+  height: fit-content;
+  height: fit-content;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#headerStrip{
+  margin-top: 3px;
+  height: min(max(1px, 0.2vh), 2px);
+  width: 100%;
+  background-color:var(--secondary-color);
+}
+#dummyHeaderStrip{
+  margin-top: 3px;
+  height: min(max(1px, 0.2vh), 2px);
+  width: 100%;
+  background-color:var(--secondary-color);
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#titleOuter{
+  flex: 40%;
+  left: 0%;
+  padding-left: min(15px, 1.1%);
+  padding-top: 0px;
+  padding-bottom: 10px;
+  margin-top: min(1.0vw, 5px);
+  margin-bottom: 0px;
+  display:block;
+}
+#dummyTitleOuter{
+  flex: 40%;
+  left: 0%;
+  padding-left: min(15px, 1.1%);
+  padding-top: 0px;
+  padding-bottom: 10px;
+  margin-top: min(1.0vw, 5px);
+  margin-bottom: 0px;
+  display:block;
+  height: fit-content;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#title{
+  font-size: max(min(3.3vw, 45px), 16px);
+  color:var(--secondary-color);
+}
+#dummyTitle{
+  font-size: max(min(3.3vw, 45px), 16px);
+  color:var(--secondary-color);
+  height: fit-content;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#subtitle{
+  font-size: max(min(1.8vw, 25px), 12px);
+  color:var(--tertiary-color);
+}
+#dummySubtitle{
+  font-size: max(min(1.8vw, 25px), 12px);
+  color:var(--tertiary-color);
+  height: fit-content;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#contentLinks{
+  flex: 60%;
+  padding-top: min(2vw, 30px);
+  bottom: 0px;
+  height: 100%;
+  padding-right: min(2px, 1.1%);
+  display:flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: max(min(1.8vw, 25px), 12px);
+  color:var(--secondary-color);
+}
+#dummyContentLinks{
+  flex: 60%;
+  padding-top: min(2vw, 30px);
+  bottom: 0px;
+  height: 100%;
+  padding-right: min(2px, 1.1%);
+  display:flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: max(min(1.8vw, 25px), 12px);
+  color:var(--secondary-color);
+  height: fit-content;
+  
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#content{
+  position: absolute; 
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  bottom:0;
+  padding: 0px;
+  overflow: auto;
+}
+
+#contentInner{
+  top: 0px;
+  width: min(100%, var(--max-total-width));
+  margin: 0 auto;
+  min-height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  min-height: calc(var(--vh, 1vh) * 100);
+  height: fit-content;
+  padding: 0px;
+  background-color:var(--background-color);
+}
+
+#contentPages{
+  padding: 5px;
+  height: fit-content;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* Overview */
+#overviewTitle{
+  left: 0%;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 0px;
+  display:block;
+  color:var(--tertiary-color);
+  font-size: min(4.3vw, 45px);
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  padding-top: 10px;
+}
+
+#overviewSubtitle{
+  left: 0%;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  display:block;
+  color:var(--tertiary-color);
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  font-size: min(3.5vw, 24px);
+}
+
+#overviewImage{
+  width: 100%;
+  min-height: 100%;
+  padding: 0px;
+  padding-top: 0px;
+  padding-bottom: 10px;
+}
+
+#overviewImageImg{
+  width: 100%;
+  min-height: 100%;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-backface-visibility: hidden; 
+  -ms-transform: translateZ(0); /* IE 9 */
+  -webkit-transform: translateZ(0); /* Chrome, Safari, Opera */
+  transform: translateZ(0);
 }
