@@ -50,14 +50,59 @@ export class App extends React.Component {
                   <b>Home Automation and AI Assistant Suite</b>
                 </div>
                 <div id="overviewSubtitle">
-                  Complete online guide
+                  Complete Online Guide
                 </div>
 
                 <div id="overviewImage">
                   <img id="overviewImageImg" src={require("../../../assets/overview.png").default}/>
                 </div>
 
-                CONTENT HERE.
+                <hr/>
+
+                <div id="overviewNavigationOuter">
+                  <div id="overviewNavigation">
+                    <div id="overviewNavigationTitle">
+                      <b>Home Automation</b>
+                      <hr id="overviewNavigationLine"/>
+                    </div>
+                    <img id="overviewNavigationImage" src={require("../../../assets/overviewHomeAutomation.png").default}/>
+                  </div>
+                  <div id="overviewNavigation">
+                    <div id="overviewNavigationTitle">
+                    <b>AI Assistant</b>
+                    <hr id="overviewNavigationLine"/>
+                    </div>
+                    <img id="overviewNavigationImage" src={require("../../../assets/overviewAiAssistant.png").default}/>
+                  </div>
+                  <div id="overviewNavigation">
+                    <div id="overviewNavigationTitle">
+                    <b>Cloud AI Server</b>
+                    <hr id="overviewNavigationLine"/>
+                    </div>
+                    <img id="overviewNavigationImage" src={require("../../../assets/overviewCloudAiServer.png").default}/>
+                  </div>
+                </div>
+                <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    DIY Home Automation and AI Toolkit
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    CONTENT HERE.
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    CONTENT HERE.
+                  </div>
+
+                  <br/>
+                </div>
               </div>
 
             </div>
