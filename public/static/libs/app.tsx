@@ -103,6 +103,19 @@ export class App extends React.Component {
 
                   <br/>
                 </div>
+
+                
+                <div id="overviewDiagram">
+                  <div id="overviewNavigationTitle">
+                    <b>Sample System Overview</b>
+                    <hr id="overviewNavigationLine"/>
+                  </div>
+                  <img id="overviewDiagramImg" src={require("../../../assets/overviewDiagram.png").default}/>
+                </div>
+
+                <br/>
+                <br/>
+
               </div>
 
             </div>
