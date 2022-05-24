@@ -7,9 +7,29 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
+const shownWindowInitial = {
+  display: "block",
+  visibility: "visible",
+  pointerEvents: "auto",
+  overflow: "hidden",
+}
+
+const hiddenWindowInitial = {
+  display: "none",
+  visibility: "hidden",
+  pointerEvents: "none",
+  overflow: "hidden",
+}
+
 export class App extends React.Component {
 
   state = {
+    overviewStyle: shownWindowInitial,
+    homeAutomationStyle: hiddenWindowInitial,
+    aiAssistantStyle: hiddenWindowInitial,
+    cloudAiServerStyle: hiddenWindowInitial,
+    contactStyle: hiddenWindowInitial,
+    
   };
 
   constructor(){
@@ -20,12 +40,76 @@ export class App extends React.Component {
   componentDidMount(){
   }
 
+  // Show the 1st tool (submission) and hide all others. 
+  showPage(evt) {
+    var pageName = evt.target.className.toLowerCase()
+
+    if(pageName == "overview"){
+      this.setState({
+        overviewStyle : Object.assign({}, shownWindowInitial),
+        homeAutomationStyle: Object.assign({}, hiddenWindowInitial),
+        aiAssistantStyle: Object.assign({}, hiddenWindowInitial),
+        cloudAiServerStyle: Object.assign({}, hiddenWindowInitial),
+        contactStyle: Object.assign({}, hiddenWindowInitial),
+      });
+    }
+    else if(pageName == "home automation"){
+      this.setState({
+        overviewStyle : Object.assign({}, hiddenWindowInitial),
+        homeAutomationStyle: Object.assign({}, shownWindowInitial),
+        aiAssistantStyle: Object.assign({}, hiddenWindowInitial),
+        cloudAiServerStyle: Object.assign({}, hiddenWindowInitial),
+        contactStyle: Object.assign({}, hiddenWindowInitial),
+      });
+    }
+    else if(pageName == "ai assistant"){
+      this.setState({
+        overviewStyle : Object.assign({}, hiddenWindowInitial),
+        homeAutomationStyle: Object.assign({}, hiddenWindowInitial),
+        aiAssistantStyle: Object.assign({}, shownWindowInitial),
+        cloudAiServerStyle: Object.assign({}, hiddenWindowInitial),
+        contactStyle: Object.assign({}, hiddenWindowInitial),
+      });
+    }
+    else if(pageName == "cloud ai server"){
+      this.setState({
+        overviewStyle : Object.assign({}, hiddenWindowInitial),
+        homeAutomationStyle: Object.assign({}, hiddenWindowInitial),
+        aiAssistantStyle: Object.assign({}, hiddenWindowInitial),
+        cloudAiServerStyle: Object.assign({}, shownWindowInitial),
+        contactStyle: Object.assign({}, hiddenWindowInitial),
+      });
+    }
+    else if(pageName == "contact"){
+      this.setState({
+        overviewStyle : Object.assign({}, hiddenWindowInitial),
+        homeAutomationStyle: Object.assign({}, hiddenWindowInitial),
+        aiAssistantStyle: Object.assign({}, hiddenWindowInitial),
+        cloudAiServerStyle: Object.assign({}, hiddenWindowInitial),
+        contactStyle: Object.assign({}, shownWindowInitial),
+      });
+    }
+    else{
+      console.log(`[ERROR] Logic error with showPage. Unknown pagename: ${pageName}`)
+    }
+    this.scrollToTop();
+  }
+
+  scrollToTop = () => {
+    this.endOfPage.scrollIntoView({ behavior: "auto" });
+  }
+
   render() {
     return (
       <div>
 
         <div id="content">
           <div id="contentInner">
+
+            <div style={{ float:"left", clear: "both" }}
+              ref={(el) => { this.endOfPage = el; }}>
+            </div>
+
             <div id="dummyHeader">
               <div id="dummyHeaderInner">
                 <div id="dummyTitleOuter">
@@ -44,7 +128,7 @@ export class App extends React.Component {
 
             <div id="contentPages">
 
-              <div id="overview">
+              <div id="overview" style={this.state.overviewStyle}>
 
                 <div id="overviewTitle">
                   <b>Home Automation and AI Assistant Suite</b>
@@ -60,26 +144,26 @@ export class App extends React.Component {
                 <hr/>
 
                 <div id="overviewNavigationOuter">
-                  <div id="overviewNavigation">
-                    <div id="overviewNavigationTitle">
+                  <div id="overviewNavigation" className="home automation" onClick={evt => this.showPage(evt)}>
+                    <div id="overviewNavigationTitle" className="home automation" onClick={evt => this.showPage(evt)}>
                       <b>Home Automation</b>
                       <hr id="overviewNavigationLine"/>
                     </div>
-                    <img id="overviewNavigationImage" src={require("../../../assets/overviewHomeAutomation.png").default}/>
+                    <img id="overviewNavigationImage" className="home automation" onClick={evt => this.showPage(evt)} src={require("../../../assets/overviewHomeAutomation.png").default}/>
                   </div>
-                  <div id="overviewNavigation">
-                    <div id="overviewNavigationTitle">
+                  <div id="overviewNavigation" className="ai assistant" onClick={evt => this.showPage(evt)}>
+                    <div id="overviewNavigationTitle" className="ai assistant" onClick={evt => this.showPage(evt)}>
                     <b>AI Assistant</b>
                     <hr id="overviewNavigationLine"/>
                     </div>
-                    <img id="overviewNavigationImage" src={require("../../../assets/overviewAiAssistant.png").default}/>
+                    <img id="overviewNavigationImage" className="ai assistant" onClick={evt => this.showPage(evt)} src={require("../../../assets/overviewAiAssistant.png").default}/>
                   </div>
-                  <div id="overviewNavigation">
-                    <div id="overviewNavigationTitle">
+                  <div id="overviewNavigation" className="cloud ai server" onClick={evt => this.showPage(evt)}>
+                    <div id="overviewNavigationTitle" className="cloud ai server" onClick={evt => this.showPage(evt)}>
                     <b>Cloud AI Server</b>
                     <hr id="overviewNavigationLine"/>
                     </div>
-                    <img id="overviewNavigationImage" src={require("../../../assets/overviewCloudAiServer.png").default}/>
+                    <img id="overviewNavigationImage" className="cloud ai server" onClick={evt => this.showPage(evt)} src={require("../../../assets/overviewCloudAiServer.png").default}/>
                   </div>
                 </div>
                 <hr/>
@@ -92,15 +176,13 @@ export class App extends React.Component {
                   <br/>
 
                   <div>
-                    While sophisticated, well-integrated commercial home automation products have become increasingly common, software and hardware enthusiasts may find the lack of freedom inherent in such devices limiting.
+                    While sophisticated commercial home automation products have become increasingly common, software and hardware enthusiasts may find them limiting and instead favor DIY solutions.
                   </div>
 
                   <br/>
 
                   <div>
-                  Such was the motivation behind this project.
-
-                    What started as a personal DIY Home Automation project has since grown rapidly over the course of a year of development to include not only a wide variety of home automation functions, but also an AI Assistant with Machine Learning capabilities such as hotword detection, voice commands, multispeaker synthesis, and emotion detection.
+                    This project, which started as a small DIY home automation server, has grown rapidly over the course of a year to include not only a wide variety of home automation features, but also an AI Assistant with Machine Learning capabilities such as hotword detection, voice commands, multispeaker synthesis, and emotion detection.
                   </div>
 
                   <br/>
@@ -288,7 +370,6 @@ export class App extends React.Component {
 
                           <br/>
 
-
                           <li>Model evaluation harnesses
                             <ul>
                               <li>Fundamental testing harness</li>
@@ -332,8 +413,6 @@ export class App extends React.Component {
                           </li>
                         </ul>
                       </li>
-
-                      <br/>
 
                       <br/>
 
@@ -539,6 +618,130 @@ export class App extends React.Component {
 
               </div>
 
+              <div id="homeAutomation" style={this.state.homeAutomationStyle}>
+                <div id="overviewTitle">
+                  <b>Home Automation</b>
+                </div>
+                <div id="subPageImage">
+                  <img id="subPageImageImg" src={require("../../../assets/homeAutomation.png").default}/>
+                </div>
+
+                <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Arduino-based Home Automation
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+                </div>
+
+                <hr/>
+
+              </div>
+
+              <div id="aiAssistant" style={this.state.aiAssistantStyle}>
+                <div id="overviewTitle">
+                  <b>AI Assistant</b>
+                </div>
+                <div id="subPageImage">
+                  <img id="subPageImageImg" src={require("../../../assets/aiAssistant.png").default}/>
+                </div>
+
+                <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    A voice-based, modular AI platform
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+                </div>
+
+                <hr/>
+              </div>
+
+              <div id="cloudAiServer" style={this.state.cloudAiServerStyle}>
+                <div id="overviewTitle">
+                  <b>Cloud AI Server</b>
+                </div>
+                <div id="subPageImage">
+                  <img id="subPageImageImg" src={require("../../../assets/cloudAiServer.png").default}/>
+                </div>
+
+                <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Remote GPU accelerated computation
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+                </div>
+
+                <hr/>
+              </div>
+
+              <div id="contact"  style={this.state.contactStyle}>
+                <div id="overviewTitle">
+                  <b>Contact</b>
+                </div>
+
+                <div id="contactImage">
+                  <img id="subPageImageImg" src={require("../../../assets/contact.png").default}/>
+                </div>
+                <h2 id="overviewTextHeader">
+                  Arthurlot Li
+                </h2>
+                <div id="contactSubtitle">
+                  <i>Machine Learning Practitioner</i>
+                </div>
+
+                <br/>
+                <br/>
+
+                <div id="contactText">
+
+                  <div>
+                    Please feel free to contact me:
+                  </div>
+
+                  <div>
+                    <a href="mailto:ArthurlotLi@gmail.com">ArthurlotLi@gmail.com</a>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
           </div>
@@ -547,11 +750,19 @@ export class App extends React.Component {
         <div id="header">
           <div id="headerInner">
             <div id="titleOuter">
-              <div id="title"><i><b>Hobby Automation</b></i></div>
-              <div id="subtitle"><i><b>AI Augmented Software</b></i></div>
+              <div id="title"><i><b id="contentLink" className="overview" onClick={evt => this.showPage(evt)}>Hobby Automation</b></i></div>
+              <div id="subtitle"><i><b id="contentLink" className="overview" onClick={evt => this.showPage(evt)}>AI Augmented Software</b></i></div>
             </div>
             <div id="contentLinks">
-              Overview | Home Automation | AI Assistant | Cloud AI Server | Contact
+              <a id="contentLink" className="overview" onClick={evt => this.showPage(evt)}>Overview</a> 
+              <a>&nbsp;|&nbsp;</a>
+              <a id="contentLink" className="home automation" onClick={evt => this.showPage(evt)}>Home Automation</a> 
+              <a>&nbsp;|&nbsp;</a>
+              <a id="contentLink" className="ai assistant" onClick={evt => this.showPage(evt)}>AI Assistant</a> 
+              <a>&nbsp;|&nbsp;</a>
+              <a id="contentLink" className="cloud ai server" onClick={evt => this.showPage(evt)}>Cloud AI Server</a> 
+              <a>&nbsp;|&nbsp;</a>
+              <a id="contentLink" className="contact" onClick={evt => this.showPage(evt)}>Contact</a>
             </div>
           </div>
           <div id="headerStrip">
