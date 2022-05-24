@@ -176,7 +176,7 @@ export class App extends React.Component {
                   <br/>
 
                   <div>
-                    While sophisticated commercial home automation products have become increasingly common, software and hardware enthusiasts may find them limiting and instead favor DIY solutions.
+                    While sophisticated commercial home automation products have become increasingly common, software and hardware enthusiasts may instead prefer the freedom of DIY solutions.
                   </div>
 
                   <br/>
@@ -630,23 +630,420 @@ export class App extends React.Component {
 
                 <div id="overviewText">
                   <h2 id="overviewTextHeader">
-                    Arduino-based Home Automation
+                    Arduino-Based Home Automation
                   </h2>
 
                   <br/>
 
                   <div>
-                    Text
+                    The Home Automation software encompasses the Arduino firmware interacting with hobby electronics, the central web server managing all Arduinos and serving fundamental operating APIs, as well as the web application interface for manipulating the system over the internet.
                   </div>
 
                   <br/>
 
                   <div>
-                    Text
+                    The system architecture was designed from the ground up to be highly and easily configurable depending on the home, room, and module layout, as well as the desired behavior. 
+
+                    For users establishing their own home automation infrastructure with this software, the most laborious part of this process will be the actual hardware configuration. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    It is advised that users make incremental changes as they go, ensuring the end-to-end communication process from each Arduino to the web application behaves as expected. 
                   </div>
                 </div>
 
                 <hr/>
+
+                <div id="subPageImageMidPage">
+                  <img id="subPageImageImg" src={require("../../../assets/homeAutomation1.jpg").default}/>
+                </div>
+
+                <hr />
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Hardware Recommendations
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    This can be considered a medium-to-advanced level hobby electronics project. 
+                    
+                    As such, it is recommended that key tools frequently used for hobby electronics are made readily available, such as soldering equipment, glue guns, wire strippers, multimeters, and wiring equipment.
+
+                    Depending on the application, these tools may or may not be necessary.
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    The Arduino variant of choice to use in this project is the <b>Arduino Nano 33 IoT</b>. 
+                    
+                    Any WiFi-capable, WiFiNINA-supported Arduino board will do, however the Nano 33 IoT, at the time of writing, is the cheapest of these options. 
+
+                    It should be noted however, that the 3.3v voltage does incur additional complexity when working with common 5v electronics like servos. 
+
+                    Bidirectional level converters/shifters may be used.
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    The Arduino firmware provided in this software supports the following hardware and actions: 
+                    <ul>
+                      <li>"LIGHTING" - Relay boxes, LED lights, etc. with simple circuit opening and closing</li>
+                      <li>"REMOTE" - A single servo pressing a button once for "on", again for "off"</li>
+                      <li>"KNOB" - A single servo turning a knob from 0 degrees as "off" to 180 degrees as "on"</li>
+                      <li>"SWITCH" - A pair of servos, with one servo actuating for "on", the other for "off"</li>
+                      <li>"LEDSTRIP" - WS2812B addressable RGB LED strips with 8 different modes</li>
+                      <li>"TEMP" - DHT22 thermometers providing temperature and humidity data</li>
+                      <li>"MOTION" - PIR motion sensors providing motion start and motion stop events</li>
+                      <li>"DOOR" - Door sensors providing opened and closed events</li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    Any run-of-the-mill 180 degree servo will do for mechanical tasks. 
+                    
+                    Smaller, "mini" servos are recommended to alleviate potential stress on buttons and switches and to prolong the life of the system.
+                  </div>
+
+                  <br/>
+                  
+                  <div>
+                    To control wall socket power, traditional relay circuit boxes will perform adequately. 
+                    
+                    However, the usual dangers with working with high voltage wires apply here as well - doubly so given the day-to-day nature of a home automation system.
+                  
+                    <b>&nbsp;Please do NOT work with high voltage wires unless you are highly experienced.&nbsp;</b>
+                      
+                    Beware the incredible danger of electrocution and electrical fires that may <b>potentially damage or destroy your home</b>.
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    For those wary of such dangers, I <i>highly</i> recommend using safely contained products for relay control switching instead, such as the <b>IoT Relay</b> sold by Digital Loggers. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    There are no strict requirements on specific brands utilized for temperature sensors, PIR sensors, door sensors, and LED strips. 
+                    
+                    Simply ensure that they are compatible with the Arduino board you'll be using beforehand. 
+                  </div>
+                </div>
+
+                <hr/>
+
+                <div id="subPageImageMidPage">
+                  <img id="subPageImageImg" src={require("../../../assets/homeAutomation2.jpg").default}/>
+                </div>
+
+                <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Base Home Infrastructure
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    There are a few requirements in terms of networking and computer hardware necessary to support this home automation architecture. 
+
+                    This guide was written under the assumption that the user has full access to their local network configuration.
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    For networking, a router capable of handling a mesh of IoT devices within the local network is required. Wifi 6 devices are recommended.
+
+                    Additionally, the user must be able to access the router's administrative interface so as to view currently connected devices and to make DCHP IP address reservations.
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    The user must also have a network-connected computer (OS agnostic) available to use as a 24/7 central web server. 
+
+                    Running the web server is a relatively moderate computation workload that can be effectively accomplished by older, lower-powered laptops - these may be preferable if power consumption is a concern.
+
+                    Ideally, the machine's primary purpose should be to serve as the web server, and not be required to accomplish other tasks in parallel. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    This machine should be turned on and given a DCHP reservation prior to the beginning of hobby electronics work. 
+                  </div>
+
+                </div>
+
+                <hr/>
+
+                <div id="subPageImageMidPage">
+                  <img id="subPageImageImg" src={require("../../../assets/homeAutomation3.png").default}/>
+                </div>
+
+                <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Wiring Automation Modules
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    Before plugging leads into breadboards, it would be best to come up with a plan - the more detailed the better. 
+
+                    With the floorplans of your home (or an approximation), indicate the locations of each Arduino module that you plan to establish, keeping in mind that each will need to be connected to 5v power. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Ideally, each Arduino should be labeled with a module ID, the room in which it's in, the action categories it implements, and the pin(s) associated with each action. 
+
+                    Each action category may have different pinout label requirements - ensure that if your action requires more than one pin, they are specified accordingly. 
+
+                    Note that some actions may require special label requirements; for example, LEDSTRIP requires both the pin number and the number of LEDs on the strip (Ex: "14.060"). 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    With a plan drawn up, electronics work can now begin. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    The Arduino firmware comes in a single large .ino file provided in the repository under "kotakeeosModule". 
+
+                    Before loading the file onto your Arduinos, make sure to create a file in that same folder called "arduino_secrets.h". 
+
+                    This file should contain two lines:
+
+                    <ul>
+                      <li>#define SECRET_SSID "Your Network Name"</li>
+                      <li>#define SECRET_PASS "yourPassword123"</li>
+                    </ul>
+
+                    Additionally, inside of "kotakeeosModule.ino", change the variable at line 133, "webServerIPAddress", to the IP address of your designated web server. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Once those items have been accomplished, the code may be loaded onto an Arduino microcontroller same as any other Arduino sketch. 
+
+                    Due to the server-centric design of this system, no further changes will need to be done to the firmware at all. 
+
+                    The server, on startup, will tell the Arduino what actions that module is capable of and what pins to use.
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Note that on startup, the Arduino module will output via serial port it's assigned IP address on the local network. 
+
+                    Be sure to create a DCHP reservation and write down the IP address on your planning documents for future reference.
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    When working with 3.3v and 5v electronics at the same time, you must be vigilant as to which lines are which. 
+
+                    There is the ever-present risk of frying your lower voltage Arduino by accidentally touching the wrong leads together. 
+
+                    Drawing up wiring diagrams and/or utilizing software like <b>Fritzing</b> may help minimize this risk. 
+
+                    If this is your first time using a level converter, be careful and familiarize yourself with how to use them properly.
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    As with any hobby electronics project, testing before mounting is a must. 
+
+                    Try to build a basic Arduino module and hook up the software side of things end-to-end before gluing servos and affixing things to walls. 
+
+                    Once you have a module that, for example, successfully turns a breadboard LED on and off over the network, you should be ready to get serious. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Outside of those pieces of advice, the hardware side is all yours to dream up and create - have fun.
+                  </div>
+                </div>
+
+                <hr/>
+
+                <div id="subPageImageMidPage">
+                  <img id="subPageImageImg" src={require("../../../assets/homeAutomation4.png").default}/>
+                </div>
+
+                <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Central Web Server Configuration
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    Before running the central web server, Node.js 16.x must be installed and configured. 
+                    
+                    Once Node has been installed, clone the repository onto the web server, navigate inside of KotakeeOS/software, and run "npm install" to acquire dependencies. 
+
+                    With this, the web server and web application should be ready for configuration and use. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    All central server configuration changes will be made within the KotakeeOS/software/server.js file. 
+
+                    Out of the box, lines 153 - 404 are provided as reference code demonstrating an example home configuration. 
+
+                    This code should be removed and replaced with your own configuration. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Here, Module objects may be defined with their governed actions and pinout information.
+
+                    Modules are grouped together in Room objects, who each have their own unique IDs. 
+
+                    When a user queries to activate/deactivate something, they will query using the roomID, the actionID, and the desired toState. 
+
+                    IP addresses are necessary to initially link Arduinos to their programmed configurations on startup with a Module object linked to a Room object. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    No configuration of the central web server is necessary outside of this singular file. 
+
+                    It is recommended to familiarize oneself with the high-level logic contained within the server.js file before declaring new Modules and Rooms. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    <b>OpenWeatherMapAPI</b> support is baked into the central web server to provide up-to-date weather information for a given ZIP code. 
+
+                    Users should go to OpenWeatherMapAPI to generate their own API keys and enter it into line 135. 
+
+                    One's ZIP code should also be entered into line 403 to tell the API which area to query for weather data. 
+                  </div>
+                </div>
+
+                <hr/>
+
+                <div id="subPageImageMidPage">
+                  <img id="subPageImageImg" src={require("../../../assets/homeAutomation5.png").default}/>
+                </div>
+
+                <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Web Application Interface
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    Depending on the layout of the users's home automation infrastructure, the web application interface must be modified accordingly. 
+
+                    The application is a React.js, Express.js, TypeScript web app dynamically displaying data provided by the central web server.  
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    All configuration will take place in KotakeeOS/software/public/static/libs/app.tsx. 
+
+                    Changes will occur between lines 1033 - 1067 utilizing existing methods in order to update the buttons and temperature readouts that appear on the interface. 
+
+                    No other changes to the functionality of the web application are necessary.
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    The application will routinely query the central web server for both action and home status information. 
+
+                    It is optimized for horizontal screens and is intended to be kept open in communal home areas for easy status notification and user interactions. 
+                  </div>
+
+                </div>
+
+                <hr/>
+
+                <div id="subPageImageMidPage">
+                  <img id="subPageImageImg" src={require("../../../assets/homeAutomation6.png").default}/>
+                </div>
+
+                <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Fine-Tuning Automation Behavior
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    Once the end-to-end system architecture has been proven with simple Arduino modules, more complex operations may be implemented. 
+
+                    In addition to fielding requests from users to perform actions, the automation software also allows for the ingesting of input data from Arduino modules. 
+
+                    In the ideal world, the user should interact with the web application minimally for rare occasions, letting the automatic features of the system do the work otherwise.
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Input actions are defined in JSON objects that dictate the various actions and caveats relating to the ingestion of particular pieces of data from particular actions. 
+
+                    These are room-specific, and are heavily customizable depending on the user's desires. 
+                    
+                    The following are the actions and caveats implemented:
+
+                    <ul>
+                      <li>Receiving motion sensor data - <i>(Ex: Turn on light with detected motion)</i></li>
+                      <li>Receiving door sensor data - <i>(Ex: Turn on bathroom vent when door closed)</i></li>
+                      <li>Receiving temperature or humidity data - <i>(Ex: Turn on A/C if thermostat temperature exceeded)</i></li>
+                      <li>Receiving special commands - <i>(Ex: Play audio file given Arduino signal)</i></li>
+                      <li>Conditioned by time of day - <i>(Ex: At night, motion sensor activates dim LED, not lights)</i></li>
+                      <li>Conditioned by states of other actions - <i>(Ex: Do not turn off light if door is closed)</i></li>
+                      <li>Conditioned by timeout - <i>(Ex: Turn off motion sensor-activated lights after 80 seconds)</i></li>
+                      <li>Conditioned by input history - <i>(Ex: Do not timeout lights if more motion was detected in last 80 seconds)</i></li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    At this point it is up to the user to plan, experiment, and implement their own advanced home automation strategies given the existing infrastructure provided by this software.
+
+                    It is highly encouraged that the user explore the code, and in time, perhaps augment the code with their own additions so as to make the system work better for their particular needs. 
+                  </div>
+
+                  <br/>
+                  <br/>
+                </div>
 
               </div>
 
@@ -662,7 +1059,7 @@ export class App extends React.Component {
 
                 <div id="overviewText">
                   <h2 id="overviewTextHeader">
-                    A voice-based, modular AI platform
+                    A Voice-Based, Modular AI Platform
                   </h2>
 
                   <br/>
@@ -679,6 +1076,125 @@ export class App extends React.Component {
                 </div>
 
                 <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Basic Assistant Configuration
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+                </div>
+
+                <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Trigger Word Detection AI Project
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+                </div>
+
+                <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Emotion Detection AI Project
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+                </div>
+
+                <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Multispeaker Synthesis AI Project
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+                </div>
+
+                <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Machine Pianist AI Project
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+                </div>
+
+                <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Developing Your Own Modules
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+                </div>
+
               </div>
 
               <div id="cloudAiServer" style={this.state.cloudAiServerStyle}>
@@ -710,6 +1226,65 @@ export class App extends React.Component {
                 </div>
 
                 <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Configuring Cloud Inference
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+                </div>
+
+                <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Configuring Your Own APIs
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+                </div>
+
+                <hr/>
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Dockerization with GPU Visibility
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Text
+                  </div>
+                </div>
+
               </div>
 
               <div id="contact"  style={this.state.contactStyle}>
