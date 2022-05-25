@@ -1059,7 +1059,49 @@ export class App extends React.Component {
 
                 <div id="overviewText">
                   <h2 id="overviewTextHeader">
-                    A Voice-Based, Modular AI Platform
+                    A Modular Voice-Based AI Platform
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    The AI Assistant, "Kotakee Companion", is a voice command centric platform intended to be effortlessly scalable with an inherently modular architecture. 
+
+                    The Assistant shines best when hosted in the same local network as the Central Web Server, allowing users to control their home automation system with their voice. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    However, web server connectivity is not required, as the Assistant primarily acts as a standalone application with mechanisms allowing it to detect its environment and change enabled features accordingly.
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    The Assistant's architecture was designed with AI and Machine Learning applications mind, with special configurable module features that account for the potentially heavy overhead of startup and operation.
+
+                    Redundancy and verbose logging are also included in order to make sense of what may quickly become a large bundle of hosted modules and features. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Users are encouraged to explore the existing modules and features of the AI Assistant, and to perhaps develop additional modules augmenting the Assistant for their own personal needs and projects.
+                  </div>
+                </div>
+
+                <hr/>
+
+                <div id="subPageImageMidPageMedium">
+                  <img id="subPageImageImg" src={require("../../../assets/aiAssistant1.png").default}/>
+                </div>
+
+                <hr />
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Fundamental Components and Modules
                   </h2>
 
                   <br/>
