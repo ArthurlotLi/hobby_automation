@@ -1073,13 +1073,13 @@ export class App extends React.Component {
                   <br/>
 
                   <div>
-                    However, web server connectivity is not required, as the Assistant primarily acts as a standalone application with mechanisms allowing it to detect its environment and change enabled features accordingly.
+                    However, web server connectivity is not required, as the Assistant primarily acts as a <b>standalone application</b> with mechanisms allowing it to detect its networking environment and change enabled features accordingly.
                   </div>
 
                   <br/>
 
                   <div>
-                    The Assistant's architecture was designed with AI and Machine Learning applications mind, with special configurable module features that account for the potentially heavy overhead of startup and operation.
+                    The Assistant's architecture was designed with AI and Machine Learning applications in mind, with special configurable module features that account for the potentially heavy overhead of startup and operation.
 
                     Redundancy and verbose logging are also included in order to make sense of what may quickly become a large bundle of hosted modules and features. 
                   </div>
@@ -1101,23 +1101,146 @@ export class App extends React.Component {
 
                 <div id="overviewText">
                   <h2 id="overviewTextHeader">
-                    Fundamental Components and Modules
+                    Fundamental Assistant Components
                   </h2>
 
                   <br/>
 
                   <div>
-                    Text
+                    The foundation of the Assistant consists of three major components that may be optionally shared with virtually every single other component and module in the system. 
+
+                    These fundamental components provide commonly used functions for interacting with users and the network at large. These are:
+                    <ul>
+                      <li>The Web Server Status Component</li>
+                      <li>The Speech Speak Component</li>
+                      <li>The Speech Listen Component</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    The <b>Web Server Status Component</b> passively manages the networking status of the application, including the connectivity statuses of the Central Web Server and the Cloud AI Server. 
+
+                    All outgoing HTTP requests are managed by this component, as well as all configured IP addresses for various endpoints. 
+
+                    This component should be included for any module utilizing the network (News APIs, Cloud AI Server inference, etc.). 
                   </div>
 
                   <br/>
 
                   <div>
-                    Text
+                    The <b>Speech Speak Component</b> governs outgoing interactions with the user via audio. 
+
+                    Interactions may be either blocking or non-blocking, and may consist of outgoing speech or audio file playback.
+
+                    The Textual Emotion Detection and/or Multispeaker Synthesis AI projects may be optionally enabled within this component (see below).
+
+                    As an alternative to Multispeaker Synthesis, PyTTSx3 integration is provided using subprocessing.
+
+                    All incoming events are rendered thread-safe with a single Speech Speak processing thread that manages events provided in a queue. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    The <b>Speech Listen Component</b> facilitiates Speech Recognition given audio recorded after an optional text or noise prompt. 
+
+                    If the Assistant is online (able to reach "google.com"), Google Speech Recognition will be utilized to transcribe the user's commands.
+
+                    Otherwise, the less powerful, offline PocketSphinx Recognizer will be utilized instead. 
+
+                    Similar to the Speech Speak Component, all events are processed off a queue by a central Speech Listen processing thread. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    When designing a new module, the user should consider which of these three fundamental components are necessary for the task at hand. 
+
+                    Infrastructure is in place to ensure every module implemented in the Assistant has access to these three components. 
                   </div>
                 </div>
 
                 <hr/>
+
+                <div id="subPageImageMidPageMedium">
+                  <img id="subPageImageImg" src={require("../../../assets/aiAssistant2.png").default}/>
+                </div>
+
+                <hr />
+
+                <div id="overviewText">
+                  <h2 id="overviewTextHeader">
+                    Active and Passive Modules
+                  </h2>
+
+                  <br/>
+
+                  <div>
+                    Implemented Modules may be one of two variants:
+                    <ul>
+                      <li>Active Modules</li>
+                      <li>Passive Modules</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <b>Active Modules</b> involve direct interactions with the Assistant user after they have uttered the hotword. 
+
+                    Standardized methods are required to be defined by Active Modules that ingest the command text and parse if the command falls within its jurisdiction. 
+
+                    Keyword detection is the recommended approach.
+
+                    Some examples include the Assistant user asking for the weather, turning off the lights, or requesting that a piano song be played. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    <b>Passive Modules</b> are objects that are activated after a specified timestamp has been reached or exceeded without human interaction. 
+
+                    Passive Modules may be either singleton or routine occurences, defined either at startup or during runtime from Active Modules. 
+
+                    Module events are handled in a central processing thread managing an incoming queue to avoid collisions. 
+
+                    Mechanisms are provided to allow "eventing" to occur, allowing children modules to tell the module handler how to handle code completion.
+
+                    Some examples include the Assistant user setting a timer or alarm, or a routine query to the internet to search for a specific occurence. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Both Active and Passive modules are imported dynamically on startup to minimize necessary changes to the underlying infrastructure. 
+
+                    New modules defined at startup must have entries in the "interaction_active.json" or "interaction_passive.json" file specifying the class to import. 
+
+                    A "module_active.json" or "module_passive.json" file must be contained within the same directory of the imported class, specifying a variety of options for the module:
+                    <ul>
+                      <li>Whether online connectivity is required - the module will be deactivated if there is no wide internet connectivity</li>
+                      <li>Whether web server connectivity is required - likewise, the module will be deactivated if required and not present</li>
+                      <li>A timeout of non-usage which, upon expiration, will trigger disposal of the module to conserve memory footprint</li>
+                      <li>Whether the module is initialized on startup or on first use</li>
+                      <li>The speech spoken indicating startup (optional)</li>
+                      <li>What specific words trigger startup of the module (optional)</li>
+                      <li>Which of the three fundamental components the module requires</li>
+                      <li>Whether the passive interaction handler is required</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    The creation of new modules should not require any changes whatsoever to the underlying Assistant code, only to these configuration files. 
+
+                    It is recommended that the user examine existing modules and familiarize themselves with their structure before potentially creating their own. 
+                  </div>
+                </div>
+
+                <hr/>
+
+                <div id="subPageImageMidPageMedium">
+                  <img id="subPageImageImg" src={require("../../../assets/aiAssistant3.png").default}/>
+                </div>
+
+                <hr />
 
                 <div id="overviewText">
                   <h2 id="overviewTextHeader">
@@ -1127,27 +1250,47 @@ export class App extends React.Component {
                   <br/>
 
                   <div>
-                    Text
+                    By convention, all file paths, AI project configuration constants, and IP addresses are defined in the primary file "speech_server.py".
+
+                    Before starting the AI Assistant, the user should edit line 84 and line 85 to reflect the IP addresses of their Central Web Server and Cloud AI Server respectively. 
+
+                    No other configuration is necessary to get the AI Assistant online. 
                   </div>
 
                   <br/>
 
                   <div>
-                    Text
+                    For running the AI Assistant, Python 3.8.x is required, as well as a host of package dependencies. 
+
+                    Please refer to the README for the full instructions, as some packages such as pyaudio and PocketSphinx require particular steps beyond simply installing from the "requirements.txt" file.
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Once all dependencies have been installed, the AI Assistant may be run with the command "python3 speech_server.py [trigger_word_detection_model_number]". 
                   </div>
                 </div>
 
                 <hr/>
 
+                <div id="subPageImageMidPageMedium">
+                  <img id="subPageImageImg" src={require("../../../assets/aiAssistant4.png").default}/>
+                </div>
+
+                <hr />
+
                 <div id="overviewText">
                   <h2 id="overviewTextHeader">
-                    Trigger Word Detection AI Project
+                    Machine Learning Hotword Detection
                   </h2>
 
                   <br/>
 
                   <div>
-                    Text
+                    The Trigger Word Detection AI Project provides the ability of the AI Assistant to "wake" itself upon hearing a key word or phrase uttered through an audio stream. 
+
+                    The entire Trigger Word Detection project is provided as part of the Assistant software, allowing users to potentially fine-tune or train models for their own needs. 
                   </div>
 
                   <br/>
@@ -1216,27 +1359,6 @@ export class App extends React.Component {
                     Text
                   </div>
                 </div>
-
-                <hr/>
-
-                <div id="overviewText">
-                  <h2 id="overviewTextHeader">
-                    Developing Your Own Modules
-                  </h2>
-
-                  <br/>
-
-                  <div>
-                    Text
-                  </div>
-
-                  <br/>
-
-                  <div>
-                    Text
-                  </div>
-                </div>
-
               </div>
 
               <div id="cloudAiServer" style={this.state.cloudAiServerStyle}>
