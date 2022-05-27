@@ -348,10 +348,10 @@ export class App extends React.Component {
 
                           <li>Train, Test dataset generation from pools of Negatives, Activates, and Backgrounds
                             <ul>
-                              <li>17,688 Negative samples from personal recordings and the <i>LinguaLibre</i> dataset - further changes unecessary</li>
+                              <li>17,688 Negative samples from personal recordings and the <i>LinguaLibre</i> dataset - further changes unnecessary</li>
                               <li>5,162 Activate samples personally recorded for "Hey Kotakee"</li>
                               <li>4,987 Activate samples personally recorded for "Kotakee"</li>
-                              <li>20 Background samples personally recorded - further changes unecessary</li>
+                              <li>20 Background samples personally recorded - further changes unnecessary</li>
                               <li>Assorted dataset compilation utilities</li>
                               <li>Augmented dataset creation with pitch shift, contrast, equalizers, and reverb</li>
                             </ul>
@@ -1142,7 +1142,7 @@ export class App extends React.Component {
                   <br/>
 
                   <div>
-                    The <b>Speech Listen Component</b> facilitiates Speech Recognition given audio recorded after an optional text or noise prompt. 
+                    The <b>Speech Listen Component</b> facilitates Speech Recognition given audio recorded after an optional text or noise prompt. 
 
                     If the Assistant is online (able to reach "google.com"), Google Speech Recognition will be utilized to transcribe the user's commands.
 
@@ -1198,13 +1198,13 @@ export class App extends React.Component {
                   <div>
                     <b>Passive Modules</b> are objects that are activated after a specified timestamp has been reached or exceeded without human interaction. 
 
-                    Passive Modules may be either singleton or routine occurences, defined either at startup or during runtime from Active Modules. 
+                    Passive Modules may be either singleton or routine occurrences, defined either at startup or during runtime from Active Modules. 
 
                     Module events are handled in a central processing thread managing an incoming queue to avoid collisions. 
 
                     Mechanisms are provided to allow "eventing" to occur, allowing children modules to tell the module handler how to handle code completion.
 
-                    Some examples include the Assistant user setting a timer or alarm, or a routine query to the internet to search for a specific occurence. 
+                    Some examples include the Assistant user setting a timer or alarm, or a routine query to the internet to search for a specific occurrence. 
                   </div>
 
                   <br/>
@@ -1288,39 +1288,182 @@ export class App extends React.Component {
                   <br/>
 
                   <div>
-                    The Trigger Word Detection AI Project provides the ability of the AI Assistant to "wake" itself upon hearing a key word or phrase uttered through an audio stream. 
+                    The Trigger Word Detection AI Project provides AI Assistant the ability  to "wake" itself upon hearing a key word or phrase uttered through an audio stream. 
 
                     The entire Trigger Word Detection project is provided as part of the Assistant software, allowing users to potentially fine-tune or train models for their own needs. 
+
+                    The following software is provided to facilitate Trigger Word Detection work (Please see README for utilization):
+                    <ul>
+                      <li>Fundamental training harness</li>
+                      <li>Multi-experiment "chain training" harness</li>
+                      <li>K-fold cross-validation harness</li>
+                      <li>Fundamental testing harness</li>
+                      <li>Multi-checkpoint "chain testing" harness (complete training history with test, train, and val)</li>
+                      <li>Assorted dataset compilation utilities</li>
+                      <li>Augmented dataset creation with pitch shift, contrast, equalizers, and reverb</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    Out of the box, the software provides three pretrained models for use: "Hey Kotakee", "Kotakee", and "Activate" trigger words. 
+                    
+                    These models have been trained on augmented, varied data and have empirically generalized to a decent degree to new voices. 
+
+                    However, depending on the user's voice, fine-tuning these models or even training brand new ones with additional data may be desired. 
                   </div>
 
                   <br/>
 
                   <div>
-                    Text
+                    The models are trained with data that is synthetically arranged from base .wav files of three distinct categories:
+
+                    <ol>
+                      <li>Activates - these contain the trigger word being spoken</li>
+                      <li>Negatives - these contain all sorts of sounds excluding the activate word</li>
+                      <li>Backgrounds - noise upon which Activates and Negatives will be overlaid</li>
+                    </ol>
+                  </div>
+
+                  <div>
+                    The following data has been provided as part of the software:
+
+                    <ul>
+                      <li>17,688 Negative samples from personal recordings and the <i>LinguaLibre</i> dataset</li>
+                      <li>5,162 Activate samples personally recorded for "Hey Kotakee"</li>
+                      <li>4,987 Activate samples personally recorded for "Kotakee"</li>
+                      <li>20 Background samples personally recorded</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    When augmenting or creating a new dataset, the Negatives and Background sample pools are unlikely to necessitate changes, as long as the spoken Activate word is an original combination.
+
+                    This narrows the scope of data collection significantly to only the gathering of Activate samples for users interested in improving the provided models.
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Activate samples should be gathered in as many realistic environments as possible, with as many realistic variations as possible. 
+
+                    Simple actions like tilting one's head upwards to close the throat slightly may provide invaluable information to the model allowing it to generalize better. 
+
+                    The acoustics of the environment are immensely important as well - the height of the ceiling, the location of the microphone within the room, and it's proximity to fabrics are all examples of important factors.
+
+                    The number distinct of speakers, the intonation of the trigger phrase, and the distance of the user from the microphone also have large roles in the quality of the dataset.
+
+                    Use of the Audio Augmentation harnesses may improve generalization of models trained on smaller datasets. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    The microphone type plays an enormous role as well in the performance of the model, including it's software configuration. 
+
+                    The provided personally recorded samples were all gathered with <b>Movo MC1000 Conference USB Microphones</b> with around 75% gain for enhanced range. 
+
+                    It is highly recommended that the user record samples on the microphone with which the production models will be listening.
+
+                    It is also recommended that all instances of the AI Assistant during production use the same microphone type. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Importantly, all Activate samples must be very carefully doctored to end immediately at the end of a trigger phrase. 
+
+                    Additionally, all Active samples must ideally begin with around a second of silence. 
+
+                    One of the most critical improvements made during development was the discovery that standardizing activation endings and beginnings greatly improves the quality of the model.
+
+                    Lack of leading silences may lead to models confused by Activates and Negatives pressed up against each other that lead to the trigger phrase being almost indistinguishable.
+
+                    Lack of proper endings may lead to models overwhelmed by the inherent stochasticity of when to flag a timestep as true. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    For users interested in Artificial Intelligence, this is a very good project to gain further insight into the process of Machine Learning Engineering. 
+
+                    Please take your time, experiment, and remember to document your test results. 
                   </div>
                 </div>
 
                 <hr/>
 
+                <div id="subPageImageMidPageMedium">
+                  <img id="subPageImageImg" src={require("../../../assets/aiAssistant5.png").default}/>
+                </div>
+
+                <hr />
+
+
                 <div id="overviewText">
                   <h2 id="overviewTextHeader">
-                    Emotion Detection AI Project
+                    Machine Learning Emotion Detection
                   </h2>
 
                   <br/>
 
                   <div>
-                    Text
+                    The AI Assistant provides optional Textual Emotion Detection and Representation functionality that visually augments the vocal response of the AI Assistant with a looping Avatar video. 
+
+                    The base software provides a total of 27 looping videos rendered in the Blender animation software, with 3 sets of 9 videos depending on the time of day - "Sunset", "Sunlight", and "Nightlight".
+
+                    Users may feel free to replace these videos with their own looping renders. 
                   </div>
 
                   <br/>
 
                   <div>
-                    Text
+                    When this feature enabled, all outgoing text being output by the fundamental "Speech Speak" component is provided to the Textual Emotion Detection model.
+
+                    The model will then predict the emotion category of the text, which will be fed to the Emotion Representation component that plays a video corresponding to that emotion. 
+
+                    Inference takes place in separate threads that do not block the main speech output operation. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    The base provided model is a RoBERTa-Large representational autoencoder model fine-tuned on the <i>ISEAR</i>, <i>WASSA-2017</i>, <i>Cecilia</i>, <i>DailyDialog</i>, <i>EmotionStimulus</i>, <i>MELD</i>, and <i>SMILE</i> emotion category datasets.
+
+                    From these datasets, the 6 Paul Ekman Discrete Emotion Model emotion categories were extracted, with the addition of a "Neutral" category:
+
+                    <ol>
+                      <li>Joy</li>
+                      <li>Sadness</li>
+                      <li>Fear</li>
+                      <li>Anger</li>
+                      <li>Disgust</li>
+                      <li>Surprise</li>
+                      <li>Neutral</li>
+                    </ol>
+                  </div>
+
+                  <div>
+                    In addition to emotion category videos, each time-of-day set contains looping "idle" and "listening" videos that may optionally allow the Avatar to be visible even when not actively responding. 
+
+                    This feature is configurable and may be disabled to preserve processing power on low-powered devices. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Day-to-day home automation operations will largely result in correctly predicted "Neutral" emotions. 
+
+                    Use of this feature in conjunction with modules such as the Chatbot AI may result in more diverse emotions being displayed. 
                   </div>
                 </div>
 
                 <hr/>
+
+                <div id="subPageImageMidPageMedium">
+                  <img id="subPageImageImg" src={require("../../../assets/aiAssistant6.png").default}/>
+                </div>
+
+                <hr />
 
                 <div id="overviewText">
                   <h2 id="overviewTextHeader">
@@ -1330,17 +1473,37 @@ export class App extends React.Component {
                   <br/>
 
                   <div>
-                    Text
+                    The Mutlispeaker Synthesis AI project may be optionally integrated into the AI Assistant, replacing the more robotic PyTTSx3 text synthesizer. 
+
+                    Speaker embeddings have been pre-generated and stored for an assortment of video game characters with the provided software. 
+
+                    The user may customize which speaker embedding to utilize either programmatically or during runtime. 
                   </div>
 
                   <br/>
 
                   <div>
-                    Text
+                    When enabled, Multispeaker Synthesis will synthesize audio in real time whenever the "Speech Speak" fundamental component is given output text. 
+
+                    By default, the Assistant will only use the Griffin-Lim mathematical vocoder when not connected to the Cloud AI Server. 
+
+                    This is because the higher quality Multispeaker Synthesis vocoder incurs large computational cost when synthesizing audio from Mel Spectrograms that is better suited for GPU-compute enabled platforms. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    For more information about the Multispeaker Synthesis AI project, please see: <a target="_blank" href="http://talesofskits.com">http://talesofskits.com</a>
                   </div>
                 </div>
 
                 <hr/>
+
+                <div id="subPageImageMidPageMedium">
+                  <img id="subPageImageImg" src={require("../../../assets/aiAssistant7.png").default}/>
+                </div>
+
+                <hr />
 
                 <div id="overviewText">
                   <h2 id="overviewTextHeader">
@@ -1350,14 +1513,30 @@ export class App extends React.Component {
                   <br/>
 
                   <div>
-                    Text
+                    The Machine Pianist AI Project may be utilized as part of the Piano Player active module to synthesize unique, human-like piano performances from base MIDI files in real time. 
+
+                    Performed songs may be played via two methods:
+
+                    <ul>
+                      <li>The Assistant Piano Player module utilizing PyGame to synthesize MIDI audio</li>
+                      <li>The Central Web Server's piano playing functionality when connected to an electric piano</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    Machine Pianist machine learning inference may take place on both the local Assistant machine as well as the Cloud AI Server. 
+
+                    The latter is recommended for a significant increase in the amount of time taken for inference and postprocessing, especially when the Assistant is hosted on a low-powered device.
                   </div>
 
                   <br/>
 
                   <div>
-                    Text
+                    For more information about the Machine Pianist AI project, please see: <a target="_blank" href="http://machinepianist.com/">http://machinepianist.com/</a>
                   </div>
+
+                  <br/>
+                  <br/>
                 </div>
               </div>
 
@@ -1373,23 +1552,47 @@ export class App extends React.Component {
 
                 <div id="overviewText">
                   <h2 id="overviewTextHeader">
-                    Remote GPU accelerated computation
+                    Remote GPU Accelerated Computation
                   </h2>
 
                   <br/>
 
                   <div>
-                    Text
+                    To support the AI Assistant's Machine Learning capabilities, the Cloud AI Server allows for inference to take place remotely on a GPU-compute enabled server. 
+
+                    Requests are provided and responded to using RESTful APIs over HTTP in a distributed computing paradigm supporting a virtually arbitrary number of AI Assistant clients.
                   </div>
 
                   <br/>
 
                   <div>
-                    Text
+                    The Cloud AI Server should be hosted on a machine with a CUDA-enabled graphics card installed. 
+
+                    Video drivers, CUDA, and CUDNN must all be installed, as well as the dependencies of the server by installing from "requirements.txt". 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Dockerization is also provided as an option for hosting the Cloud AI Server, with all dependencies and Dockerfiles provided readily out of the box. 
+
+                    Please note that GPU acceleration must be enabled on the container host for the server to be able to access compute resources effectively. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    For more information on GPU compute-enabled containers, please see the <a target="_blank" href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html">NVIDIA Container Toolkit installation guide</a>.
                   </div>
                 </div>
 
                 <hr/>
+
+                <div id="subPageImageMidPageMedium">
+                  <img id="subPageImageImg" src={require("../../../assets/cloudAiServer1.jpg").default}/>
+                </div>
+
+                <hr />
 
                 <div id="overviewText">
                   <h2 id="overviewTextHeader">
@@ -1399,55 +1602,39 @@ export class App extends React.Component {
                   <br/>
 
                   <div>
-                    Text
+                    The Cloud AI Server dynamically imports classes and methods from the AI Assistant code base in order to minimize duplicated code. 
+
+                    As such, when configuring the Server, both the cloud_inference_server and kotakee_companion repositories must be made available. 
+
+                    Additionally, any machine learning inference projects that are supported by the Server must also be provided, including pretrained models and scaler .bin files. 
                   </div>
 
                   <br/>
 
                   <div>
-                    Text
+                    The Cloud AI Server was designed from the ground up to be arbitrarily scalable with dynamic class imports and abstracted objects.
+
+                    If desired, additional Machine Learning APIs may be made available by users. 
                   </div>
+
+                  <br/>
+
+                  <div>
+                    To add new API functionality, the "service_definitions.py" and "handler_definitions.py" file should be updated, to define a new API and to define the handling classes, respectively. 
+
+                    Dynamic class import functions are provided to all handler classes in the case that AI Assistant code is necessary. 
+                  </div>
+
+                  <br/>
+
+                  <div>
+                    Please see the README for additional information as to how to configure the server for your own needs.
+                  </div>
+                  <br/>
+                  <br/>
                 </div>
 
                 <hr/>
-
-                <div id="overviewText">
-                  <h2 id="overviewTextHeader">
-                    Configuring Your Own APIs
-                  </h2>
-
-                  <br/>
-
-                  <div>
-                    Text
-                  </div>
-
-                  <br/>
-
-                  <div>
-                    Text
-                  </div>
-                </div>
-
-                <hr/>
-
-                <div id="overviewText">
-                  <h2 id="overviewTextHeader">
-                    Dockerization with GPU Visibility
-                  </h2>
-
-                  <br/>
-
-                  <div>
-                    Text
-                  </div>
-
-                  <br/>
-
-                  <div>
-                    Text
-                  </div>
-                </div>
 
               </div>
 
